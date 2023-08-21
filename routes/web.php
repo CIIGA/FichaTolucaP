@@ -22,4 +22,12 @@ Route::post('/imagenes', [ImageController::class, 'index'])->name('formImg');
 
 Route::get('/buscar', [IndexController::class, 'buscar'])->name('buscar');
 //formulario
-Route::post('/formulario', [FichaController::class, 'index'])->name('form');
+Route::get('/formulario', [FichaController::class, 'index'])->name('form');
+//guardar datos ficha
+Route::post('/registro', [FichaController::class, 'store'])->name('store');
+//agregar vca
+Route::get('/add_vca',  [FichaController::class, 'add_vca'])->name('add_vca');
+//cargar tabla_vca
+Route::get('/tabla_vca/{clave}',  [FichaController::class, 'tabla_vca'])->name('tabla_vca');
+//cargar tabla_vca
+Route::get('/delete_id_vca',  [FichaController::class, 'delete_id_vca'])->name('delete_id_vca');

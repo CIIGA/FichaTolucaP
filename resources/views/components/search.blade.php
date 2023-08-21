@@ -118,14 +118,11 @@ if((isset($_SESSION['user'])) and ($_SESSION['tipousuario'] == 'documentos') or 
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
-                    <form action="{{ route('form') }}" method="post" novalidate>
-                        @csrf
     
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="cuenta">Clave Catastral: *</label>
-                                <input type="hidden" value="{{$id_documento}}" name="id_documento">
-                                <input type="hidden" value="{{$id_usuario}}" name="id_usuario">
+                                
                                 <input type="text" class="form-control" name="cuenta" id="busqueda"
                                     placeholder="Ingresa una clave">
                             </div>
@@ -139,7 +136,7 @@ if((isset($_SESSION['user'])) and ($_SESSION['tipousuario'] == 'documentos') or 
                                 <i class="fas fa-chevron-left"></i> Cancelar</button>
                             
                         </div>
-                    </form>
+                   
                     
                     
                     
@@ -159,8 +156,11 @@ if((isset($_SESSION['user'])) and ($_SESSION['tipousuario'] == 'documentos') or 
                     .then(response => response.json())
                     .then(data => {
                         if (data.encontrado) {
-                            // Mostrar el botón en el modal
-                            document.getElementById('resultado').innerHTML = '<button type="submit" class="btn btn-primary">ir a crear ficha</button>';
+                            const resultadoElement = document.getElementById('resultado');
+                    const idDocumento = {{ $id_documento }}; // Obtener el valor de PHP
+                    const idUsuario = {{ $id_usuario }}; // Obtener el valor de PHP
+                    const enlace = `<a class="btn btn-primary" href="{{ route('form') }}?id_documento=${idDocumento}&id_usuario=${idUsuario}&clave=${query}">ir a crear ficha</a>`;
+                    resultadoElement.innerHTML = enlace;
                         } else {
                             // Mostrar la alerta en el modal
                             document.getElementById('resultado').innerHTML = '';
