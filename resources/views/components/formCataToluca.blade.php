@@ -857,6 +857,7 @@ session_start();
 
             </div>
             {{-- tabla vca --}}
+            <hr class="hrIzq" />
             <div>
                
                 <table class="table table-hover table-sm table-dark my-2" id="resultados_vca">
