@@ -31,5 +31,9 @@ Route::get('/add_vca',  [FichaController::class, 'add_vca'])->name('add_vca');
 Route::get('/tabla_vca/{clave}',  [FichaController::class, 'tabla_vca'])->name('tabla_vca');
 //cargar tabla_vca
 Route::get('/delete_id_vca',  [FichaController::class, 'delete_id_vca'])->name('delete_id_vca');
-
+//pdf ficha
 Route::get('/ficha/{clavec}/{id_documento}/{id_usuario}', [FichaController::class, 'ficha'])->name('ficha');
+//view Fichas del dia
+Route::post('/fichas-del-dia', [FichaController::class, 'viewFichasNow'])->name('viewFichas');
+//view Fichas all
+Route::get('/fichas-generadas/{id_usuario}', [FichaController::class, 'viewFichasall'])->name('viewFichasall');

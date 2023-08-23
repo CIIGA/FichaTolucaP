@@ -60,7 +60,7 @@
         }
 
         .td_lp {
-            font-size: 9px !important;
+            font-size: 8px !important;
         }
 
         .border_s {
@@ -131,6 +131,10 @@
         .underline {
             text-decoration: underline;
         }
+
+        .text_right {
+            text-align: right;
+        }
     </style>
 </head>
 
@@ -185,7 +189,7 @@
                         <td colspan="7">{{ $datos->uso }}</td>
                     </tr>
                     <tr>
-                        <th colspan="19" class="bold td_title_color">DATOS DEL PROPIETARIO O POSEEDOR</th>
+                        <th colspan="19" class="bold td_title_color">DATOS DEL POSEEDOR</th>
                     </tr>
                     <tr>
                         <td colspan="6" class="bold td_color">Nombre del propietario o poseedor</td>
@@ -237,6 +241,27 @@
 
                     </tr>
                     <tr>
+                        <td colspan="2" style="background-color: {{ $datos->color1 }}">
+                            {{ number_format($tabla1->SUPTERRTOT, 2) }}</td>
+                        <td colspan="2"style="background-color: {{ $datos->color2 }}">
+                            {{ number_format($tabla1->FRENTE, 2) }}</td>
+                        <td colspan="2"style="background-color: {{ $datos->color3 }}">
+                            {{ number_format($tabla1->NFRENTE, 5) }}</td>
+                        <td colspan="2"style="background-color: {{ $datos->color4 }}">
+                            {{ number_format($tabla1->FONDO, 2) }}</td>
+                        <td colspan="2"style="background-color: {{ $datos->color5 }}">
+                            {{ number_format($tabla1->NFFONDO, 5) }}</td>
+                        <td colspan="3"style="background-color: {{ $datos->color6 }}">
+                            {{ number_format($tabla1->UBICACION, 0) }}</td>
+                        <td colspan="2"style="background-color: {{ $datos->color7 }}">
+                            {{ number_format($tabla1->NFUBIC, 5) }}</td>
+                        <td colspan="2"style="background-color: {{ $datos->color8 }}">
+                            {{ number_format($tabla1->NFTOPOGR, 5) }}</td>
+                        <td colspan="2"style="background-color: {{ $datos->color9 }}">
+                            {{ number_format($tabla1->NFIRREG, 5) }}</td>
+
+                    </tr>
+                    <tr>
                         <td colspan="2" class="bold td_color td_lp">Área Inscrita</td>
                         <td colspan="2"style="background-color: {{ $datos->color10 }}">
                             {{ number_format($tabla1->NFAREA, 5) }}</td>
@@ -247,77 +272,137 @@
                         <td colspan="2"style="background-color: {{ $datos->color12 }}">
                             {{ number_format($FA, 5) }}</td>
                         <td colspan="1" class="bold td_color">B.V.</td>
-                        <td colspan="1"style="background-color: {{ $datos->color14 }}">{{ $datos->bh }}</td>
+                        <td colspan="2"style="background-color: {{ $datos->color13 }}">{{ $datos->bh }}</td>
                         <td colspan="1" class="bold td_color">A.H.</td>
-                        <td colspan="2"style="background-color: {{ $datos->color13 }}">{{ $datos->ah }}</td>
+                        <td colspan="2"style="background-color: {{ $datos->color14 }}">{{ $datos->ah }}</td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="background-color: {{ $datos->color1 }}">
-                            {{ number_format($tabla1->SUPTERRTOT, 2) }}</td>
-                        <td colspan="1"style="background-color: {{ $datos->color2 }}">
-                            {{ number_format($tabla1->FRENTE, 2) }}</td>
-                        <td colspan="1"style="background-color: {{ $datos->color3 }}">
-                            {{ number_format($tabla1->NFRENTE, 5) }}</td>
-                        <td colspan="1"style="background-color: {{ $datos->color4 }}">
-                            {{ number_format($tabla1->FONDO, 2) }}</td>
-                        <td colspan="1"style="background-color: {{ $datos->color5 }}">
-                            {{ number_format($tabla1->NFFONDO, 5) }}</td>
-                        <td colspan="1"style="background-color: {{ $datos->color6 }}">
-                            {{ number_format($tabla1->UBICACION, 0) }}</td>
-                        <td colspan="2"style="background-color: {{ $datos->color7 }}">
-                            {{ number_format($tabla1->NFUBIC, 5) }}</td>
-                        <td colspan="1"style="background-color: {{ $datos->color8 }}">
-                            {{ number_format($tabla1->NFTOPOGR, 5) }}</td>
-                        <td colspan="1"style="background-color: {{ $datos->color9 }}">
-                            {{ number_format($tabla1->NFIRREG, 5) }}</td>
+                        <th colspan="19" class="bold td_title_color">VALORES CATASTRALES ACTUALES</th>
+                    </tr>
+                    <tr>
+                        <td colspan="1" class="bold td_color2">No.</td>
+                        <td colspan="1" class="bold td_color2">Tipología</td>
+                        <td colspan="2" class="bold td_color2" style="width: 20px !important">Superficie
+                            <span><br></span>(ml, m2, m3)
+                        </td>
+                        <td colspan="1" class="bold td_color2">Niveles</td>
+                        <td colspan="1" class="bold td_color2">Edad</td>
+                        <td colspan="1" class="bold td_color2">G.C.</td>
+                        <td colspan="3" class="bold td_color2">Factor Aplicable</td>
+                        <td colspan="4" class="bold td_color2">Ocupación Actual</td>
+                        <td colspan="5" class="bold td_color2">Valor Construcción</td>
+                    </tr>
+                    @php
+                        $contador = 0; // Inicializar el contador
+                    @endphp
 
-
-
+                    @foreach ($vcactuales as $item)
+                        {{ $color = $vcactuales_color[($i += 1) - 1]->color }}
+                        <tr style="background-color: {{ $color }}">
+                            <td colspan="1">{{ $vcactuales_color[$i - 1]->numero }}<br></td>
+                            <td colspan="1">{{ $item->TIPOLOGIA }}</td>
+                            <td colspan="2">{{ number_format($item->SUPCONS, 0) }}</td>
+                            <td colspan="1">{{ number_format($item->NIVCONS, 0) }}</td>
+                            <td colspan="1">{{ round($item->ANIODECONS) }}</td>
+                            <td colspan="1"> {{ number_format($item->ESTADOCONS, 0) }}</td>
+                            <td colspan="3">{{ number_format($item->FACTORNIV, 5) }}</td>
+                            <td colspan="4" class="td_lp">{{ ucwords(strtolower($item->DESCRCLCAT)) }}</td>
+                            <td colspan="5">${{ number_format($item->VALORCONS, 2) }}</td>
+                        </tr>
+                        @php
+                            $contador++; // Incrementar el contador en cada iteración
+                        @endphp
+                    @endforeach
+                    @for ($i = $contador; $i < 10; $i++)
+                        <tr>
+                            <td colspan="1">{{ $contador += 1 }}</td>
+                            <td colspan="1"></td>
+                            <td colspan="2"></td>
+                            <td colspan="1"></td>
+                            <td colspan="1"></td>
+                            <td colspan="1"></td>
+                            <td colspan="3"></td>
+                            <td colspan="4"></td>
+                            <td colspan="5"></td>
+                        </tr>
+                    @endfor
+                    <tr>
+                        <td colspan="9" class="bold td_color2">Construcción Total (m2)</td>
+                        <td colspan="10">{{ number_format($construccion_t->CT, 2) }}</td>
 
                     </tr>
                     <tr>
-                        <th colspan="19" class="bold td_title_color">DATOS DEL TERRENO ACTUALIZADO</th>
+                        <td colspan="5" class="bold td_color">Valor de Terreno</td>
+                        <td colspan="8" class="bold td_color">Valor de Construcción Actual</td>
+                        <td colspan="6" class="bold td_color">Valor Catastral Actual</td>
                     </tr>
                     <tr>
-                        <td colspan="2" class="bold td_color">Sup. Terreno (m2)</td>
-                        <td colspan="2" class="bold td_color">Frente</td>
-                        <td colspan="2" class="bold td_color">Fondo</td>
-                        <td colspan="3" class="bold td_color">Posicion</td>
-                        <td colspan="1" class="bold td_color">Topografía</td>
-                        <td colspan="1" class="bold td_color">Irreg.</td>
-                        <td colspan="1" class="bold td_color td_lp">Área Insc.</td>
-                        <td colspan="2" class="bold td_color">Sup. Aprov.</td>
-                        <td colspan="3" class="bold td_color ">Factor Aplicable</td>
-                        <td colspan="1" class="bold td_color">B.V.</td>
-                        <td colspan="1" class="bold td_color">A.H.</td>
+                        <td colspan="5">${{ number_format($valor_ta->VTERRPROP, 2) }}</td>
+                        <td colspan="8">${{ number_format($construccion_t->VCT, 2) }}</td>
+                        <td colspan="6">${{ number_format($valor_ca, 2) }}</td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="background-color: {{ $datos->mcolor1 }}">
-                            {{ number_format($datos->supterreno, 2) }}</td>
-                        <td colspan="1" style="background-color: {{ $datos->mcolor2 }}">
-                            {{ number_format($datos->frente1, 2) }}</td>
-                        <td colspan="1" style="background-color: {{ $datos->mcolor3 }}">
-                            {{ number_format($datos->frente2, 5) }}</td>
-                        <td colspan="1" style="background-color: {{ $datos->mcolor4 }}">
-                            {{ number_format($datos->fondo1, 2) }}</td>
-                        <td colspan="1" style="background-color: {{ $datos->mcolor5 }}">
-                            {{ number_format($datos->fondo2, 5) }}</td>
-                        <td colspan="1" style="background-color: {{ $datos->mcolor6 }}">
-                            {{ number_format($datos->posicion1, 0) }}</td>
-                        <td colspan="2" style="background-color: {{ $datos->mcolor7 }}">
-                            {{ number_format($datos->posicion2, 5) }}</td>
-                        <td colspan="1" style="background-color: {{ $datos->mcolor8 }}">
-                            {{ number_format($datos->topografia, 5) }}</td>
-                        <td colspan="1" style="background-color: {{ $datos->mcolor9 }}">
-                            {{ number_format($datos->irreg, 5) }}</td>
-                        <td colspan="1" style="background-color: {{ $datos->mcolor10 }}">
-                            {{ number_format($datos->area, 5) }}</td>
-                        <td colspan="2" style="background-color: {{ $datos->mcolor11 }}">
-                            {{ number_format($datos->supaprov, 5) }}</td>
-                        <td colspan="3" style="background-color: {{ $datos->mcolor12 }}">
-                            {{ number_format($datos->factoraplicable, 5) }}</td>
-                        <td colspan="1" style="background-color: {{ $datos->mcolor13 }}">{{ $datos->bh2 }}</td>
-                        <td colspan="1" style="background-color: {{ $datos->mcolor14 }}">{{ $datos->ah2 }}</td>
+                        <th colspan="19" class="bold td_title_color">VALORES CATASTRALES ACTUALIZADOS</th>
+                    </tr>
+                    <tr>
+                        <td colspan="1" class="bold td_color2">No.</td>
+                        <td colspan="1" class="bold td_color2">Tipología</td>
+                        <td colspan="2" class="bold td_color2" style="width: 20px !important">Superficie
+                            <span><br></span>(ml, m2, m3)
+                        </td>
+                        <td colspan="1" class="bold td_color2">Niveles</td>
+                        <td colspan="1" class="bold td_color2">Edad</td>
+                        <td colspan="1" class="bold td_color2">G.C.</td>
+                        <td colspan="3" class="bold td_color2">Factor<span><br></span>Aplicable</td>
+                        <td colspan="4" class="bold td_color2">Ocupación Actual</td>
+                        <td colspan="5" class="bold td_color2">Valores de Construcción</td>
+                    </tr>
+                    @php
+                        $contador = 0; // Inicializar el contador
+                    @endphp
+                    @foreach ($actualizados as $dato)
+                        <tr style="background-color: {{ $dato->color }}">
+                            <td colspan="1">{{ $loop->iteration }}</td>
+                            <td colspan="1">{{ $dato->tipologia }}</td>
+                            <td colspan="2">{{ $dato->superficie }}</td>
+                            <td colspan="1">{{ $dato->niveles }}</td>
+                            <td colspan="1">{{ $dato->edad }}</td>
+                            <td colspan="1">{{ $dato->gc }}</td>
+                            <td colspan="3">{{ number_format($dato->factorA, 5) }}</td>
+                            <td colspan="4" class="td_lp">{{ $dato->Ocupacion }}</td>
+                            <td colspan="5">${{ number_format($dato->valorc, 2) }}</td>
+                        </tr>
+                        @php
+                            $contador++; // Incrementar el contador en cada iteración
+                        @endphp
+                    @endforeach
+                    @for ($i = $contador; $i < 10; $i++)
+                        <tr>
+                            <td colspan="1">{{ $contador += 1 }}</td>
+                            <td colspan="1"></td>
+                            <td colspan="2"></td>
+                            <td colspan="1"></td>
+                            <td colspan="1"></td>
+                            <td colspan="1"></td>
+                            <td colspan="3"></td>
+                            <td colspan="4"></td>
+                            <td colspan="5"></td>
+                        </tr>
+                    @endfor
+                    <tr>
+                        <td colspan="9" class="bold td_color2">Construcción Total (m2)</td>
+                        <td colspan="10">{{ number_format($actalizado_construccion_t, 2) }}</td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="bold td_color">Valor de Terreno</td>
+                        <td colspan="8" class="bold td_color">Valor de Construcción Actualizado</td>
+                        <td colspan="6" class="bold td_color">Valor Catastral Actualizado</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">${{ number_format($valor_ta->VTERRPROP, 2) }}</td>
+                        <td colspan="8">${{ number_format($construccion_a, 2) }}</td>
+                        <td colspan="6">${{ number_format($valor_ta->VTERRPROP + $construccion_a, 2) }}</td>
                     </tr>
 
                 </tbody>
@@ -329,8 +414,12 @@
         <div>
             <table>
                 <tr>
-                    <td class="bold td_title_color">CROQUIS POSICIÓN MANZANA</td>
-                    <td class="bold td_title_color">UBICACIÓN ESPECIFICA</td>
+                    <td class="bold td_color text_right">CLAVE CATASTRAL</td>
+                    <td class="bold underline text_red">{{ $datos->clavec }}</td>
+                </tr>
+                <tr>
+                    <td class="bold td_color">CROQUIS POSICIÓN MANZANA</td>
+                    <td class="bold td_color">UBICACIÓN ESPECIFICA</td>
                 </tr>
                 <tr>
                     <td class="td_imagenes12"><img class="imagenes12"
@@ -346,7 +435,7 @@
             <br>
             <table>
                 <tr>
-                    <th class="bold td_title_color">FOTOS FRENTE DEL PREDIO</th>
+                    <th class="bold td_color">FOTOGRAFIAS EN SITIO DEL PREDIO</th>
                 </tr>
             </table>
             <table class="border_s">
@@ -359,6 +448,13 @@
                             src="{{ isset($fotos->urlFoto_4) ? $fotos->urlFoto_4 : $plantilla }}" alt="">
                     </td>
                 </tr>
+            </table>
+            <table>
+                <tr>
+                    <th class="bold td_color">FOTOGRAFIAS OBLICUAS DEL PREDIO</th>
+                </tr>
+            </table>
+            <table class="border_s">
                 <tr>
                     <td class="td_h"><img class="td_img"
                             src="{{ isset($fotos->urlFoto_5) ? $fotos->urlFoto_5 : $plantilla }}" alt="">
@@ -371,17 +467,7 @@
                 </tr>
             </table>
             <br>
-            <table class="firma">
-                <tr>
-                    <td class="firma bold">Realizó</td>
-                    <td class="firma bold">Válido</td>
-                </tr>
-                <br><br>
-                <tr>
-                    <td class="firma bold">________________________________________</td>
-                    <td class="firma bold">________________________________________</td>
-                </tr>
-            </table>
+
         </div>
         <!--salto de pagina-->
         <!--tercera pagina-->
@@ -389,14 +475,11 @@
         <div>
             <table>
                 <tr>
-                    <th colspan="2" class="bold td_title_color">CROQUIS DE CONSTRUCCIÓN</th>
+                    <td colspan="1" class="bold td_color">CLAVE CATASTRAL</td>
+                    <td colspan="1" class="bold underline text_red">{{ $clavec }}</td>
                 </tr>
                 <tr>
-                    <td colspan="1">CLAVE CATASTRAL</td>
-
-                    <td colspan="1">{{ $clavec }}</td>
-
-
+                    <td colspan="2" class="bold td_color">CROQUIS DE CONSTRUCCIÓN</td>
                 </tr>
                 <tr>
                     <td colspan="2"><img style="width: 730px; height: 800px;"
@@ -406,6 +489,18 @@
                 </tr>
             </table>
         </div>
+        <br>
+        <table class="firma">
+            <tr>
+                <td class="firma bold">Realizó</td>
+                <td class="firma bold">Validó</td>
+            </tr>
+            <br><br>
+            <tr>
+                <td class="firma bold">________________________________________</td>
+                <td class="firma bold">________________________________________</td>
+            </tr>
+        </table>
     </main>
 </body>
 

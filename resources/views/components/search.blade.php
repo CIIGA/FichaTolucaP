@@ -82,8 +82,7 @@ if((isset($_SESSION['user'])) and ($_SESSION['tipousuario'] == 'documentos') or 
                         <div class="card-body">
                         <h5 class="card-title">Fichas del día <span style="color: black" class="badge badge-success">{{$now['count']}}</span></h5>
                             <p class="card-text">Fichas creadas el dia de hoy <br><?php echo date('d/m/Y'); ?></p>
-                            {{-- <form action="{{ route('viewFichas') }}" method="post" novalidate> --}}
-                            <form action="" method="post" novalidate>
+                            <form action="{{ route('viewFichas') }}" method="post" novalidate>
                                 @csrf
                                 <input type="hidden" name="id_usuario" value="{{$id_usuario}}">
                             <button type="submit" class="btn btn-primary btn-sm" style="margin-bottom: 3%">
@@ -102,8 +101,8 @@ if((isset($_SESSION['user'])) and ($_SESSION['tipousuario'] == 'documentos') or 
                             <h5 class="card-title">Total de fichas <span style="color: black" class="badge badge-warning">{{$total['count']}}</span></h5>
                             <p class="card-text">Total de fichas generadas al dia <br><?php echo date('d/m/Y'); ?></p>
                             
-                            {{-- <a href="{{route('viewFichasall',['id_usuario'=>$id_usuario])}}" class="btn btn-primary btn-sm" style="margin-bottom: 3%">ir a ver mis fichas</a> --}}
-                            <a href="#" class="btn btn-primary btn-sm" style="margin-bottom: 3%">ir a ver mis fichas</a>
+                            <a href="{{route('viewFichasall',['id_usuario'=>$id_usuario])}}" class="btn btn-primary btn-sm" style="margin-bottom: 3%">ir a ver mis fichas</a>
+                            
                         </div>
                     </div>
                 </div>

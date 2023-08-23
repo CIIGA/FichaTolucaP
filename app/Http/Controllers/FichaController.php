@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\accessDoctos;
 use App\Models\callesSeccionadas;
 use App\Models\colorVCActuales;
 use App\Models\FichaFactores;
@@ -55,6 +56,8 @@ class FichaController extends Controller
         cat_ocupaciones.DESCRCLCAT
         from cat_ocupaciones,GC203T06 where cat_ocupaciones.USO = GC203T06.USO and cat_ocupaciones.CLASECONST = GC203T06.CLASECONST and 
         cat_ocupaciones.CATEGCONST = GC203T06.CATEGCONST and GC203T06.CLAVE_CATA=?', [$request->clave]);
+
+       
 
 
         //CONSTRUCCION TOTAL
@@ -209,16 +212,16 @@ class FichaController extends Controller
             ->where('clavec', $clavec)->first();
 
 
-        $vcactuales = GC203T06::select([
-            DB::raw("concat(USO,CLASECONST,CATEGCONST) AS TIPOLOGIA"),
-            'SUPCONS',
-            'NIVCONS',
-            'ANIODECONS',
-            'ESTADOCONS',
-            'FACTORNIV',
-            'VALORCONS'
-        ])
-            ->where('CLAVE_CATA', $clavec)->get();
+            $valoresca = DB::select('select concat(GC203T06.USO,GC203T06.CLASECONST,GC203T06.CATEGCONST) AS TIPOLOGIA,
+            GC203T06.SUPCONS,
+            GC203T06.NIVCONS,
+            GC203T06.ANIODECONS,
+            GC203T06.ESTADOCONS,
+            GC203T06.FACTORNIV,
+            GC203T06.VALORCONS,
+            cat_ocupaciones.DESCRCLCAT
+            from cat_ocupaciones,GC203T06 where cat_ocupaciones.USO = GC203T06.USO and cat_ocupaciones.CLASECONST = GC203T06.CLASECONST and 
+            cat_ocupaciones.CATEGCONST = GC203T06.CATEGCONST and GC203T06.CLAVE_CATA=?', [$clavec]);
         $vcactuales_color = colorVCActuales::select([
             'numero',
             'color'
@@ -259,11 +262,19 @@ class FichaController extends Controller
             'urlFoto_7'
         ])
             ->where('cuentaPredial', $clavec)->first();
+        //valores actualizados
+        $actualizados = ValCatastralesActualizados::where('clave', $clavec)->orderby('id', 'ASC')->get();
+        $actalizado_construccion_t = ValCatastralesActualizados::where('clave', $clavec)
+            ->sum(DB::raw('CAST(superficie AS float)'));
+       
+        $construccion_a = ValCatastralesActualizados::where('clave', $clavec)
+            ->sum(DB::raw('CAST(valorc AS float)'));
 
         $plantilla = 'C:/wamp64/www/cartomaps/erdmcarto/fichaCataTolucaP/FichaTolucaP/public/img/plantilla.png';
         $pdf = PDF::loadView('pdf.fichaToluca', [
-            'vcactuales' => $vcactuales, 'vcactuales_color' => $vcactuales_color, 'i' => $i, 'datos' => $datos, 'tabla1' => $tabla1, 'FA' => $FA,
-            'construccion_t' => $construccion_t, 'valor_ta' => $valor_ta, 'valor_ca' => $valor_ca, 'fotos' => $fotos, 'clavec' => $clavec, 'plantilla' => $plantilla
+            'vcactuales' => $valoresca, 'vcactuales_color' => $vcactuales_color, 'i' => $i, 'datos' => $datos, 'tabla1' => $tabla1, 'FA' => $FA,
+            'construccion_t' => $construccion_t, 'valor_ta' => $valor_ta, 'valor_ca' => $valor_ca, 'fotos' => $fotos, 'clavec' => $clavec, 'plantilla' => $plantilla,
+            'actualizados' => $actualizados,'actalizado_construccion_t' => $actalizado_construccion_t,'construccion_a' => $construccion_a
         ]);
 
         $sql_id_accessDoctos = "SELECT id_accessDoctos FROM accessDoctos     
@@ -416,7 +427,7 @@ class FichaController extends Controller
 
     public function tabla_vca($clave)
     {
-        $datos = ValCatastralesActualizados::where('clave', $clave)->orderby('id', 'DESC')->get();
+        $datos = ValCatastralesActualizados::where('clave', $clave)->orderby('id', 'ASC')->get();
         $construccion_t = ValCatastralesActualizados::where('clave', $clave)
             ->sum(DB::raw('CAST(superficie AS float)'));
         $valor_terreno = GC203T05::select(['VTERRPROP as valor'])->where('CLAVE_CATA', $clave)->first();

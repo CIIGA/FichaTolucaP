@@ -620,7 +620,7 @@ session_start();
                             </td>
                             <td colspan="1" class="table-light border" style="text-align:center;" id="celda13">
                                 <input type="text" style="width: 80px" class="form-control " name="bh"
-                                    placeholder="B.H." value="{{ old('bh') }}" >
+                                    placeholder="B.V." value="{{ old('bh') }}" >
                             </td>
                             <td colspan="2" scope="col" class="table-light border" style="text-align:center;">
                                 A.H.
