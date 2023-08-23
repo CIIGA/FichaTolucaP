@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class indexController extends Controller
 {
-    public function index($id_documento)
+    public function index(Request $request)
     {
 
         // dd($id_documento);
-        return view('components.search', ['id_documento' => $id_documento]);
+        return view('components.search', ['id_documento' => $request->id_documento]);
     }
     public function buscar(Request $request)
     {
