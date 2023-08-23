@@ -9,7 +9,7 @@ class ImageController extends Controller
     public function index(Request $request)
     {
        
-        header('Location: ../../../CargaFotosCatTolucaP/cargaFotosTolucaPCuenta.php');
+        header('Location: ../../../CargaFotosCatTolucaP/cargaFotosTolucaPCuenta.php?id_documento='.$request->id_documento);
         die();
         
     }

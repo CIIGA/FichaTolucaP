@@ -26,6 +26,7 @@ if((isset($_SESSION['user'])) and ($_SESSION['tipousuario'] == 'documentos') or 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/index.css') }}" rel="stylesheet">
     <link href="{{ asset('css/form.css') }}" rel="stylesheet">
+    <link href="{{ asset('fontawesomev6/css/all.css')}}" rel="stylesheet">
 
    
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-material-ui/material-ui.css"

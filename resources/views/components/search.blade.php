@@ -63,13 +63,13 @@ if((isset($_SESSION['user'])) and ($_SESSION['tipousuario'] == 'documentos') or 
                                 <input type="hidden" name="id_documento" value="{{$id_documento}}">
                             <button type="submit" class="btn btn-success" style="margin-bottom: 3%" data-bs-toggle="modal"
                                 data-bs-target="#subirfoto">
-                                <i class="fas fa-file"></i> subir fotos
+                                <i class="fa-solid fa-image fa-beat"></i> subir fotos
                             </button>
                             </form>
                             {{-- Boton del modal --}}
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">
-                                <i class="fas fa-file"></i> Ir a nueva ficha
+                                <i class="fa-solid fa-file-pdf fa-beat"></i> Ir a nueva ficha
                             </button>
                         </div>
                     </div>
@@ -86,7 +86,7 @@ if((isset($_SESSION['user'])) and ($_SESSION['tipousuario'] == 'documentos') or 
                                 @csrf
                                 <input type="hidden" name="id_usuario" value="{{$id_usuario}}">
                             <button type="submit" class="btn btn-primary btn-sm" style="margin-bottom: 3%">
-                                <i class="fas fa-eye"></i> Ir a ver mis fichas
+                                <i class="fa-solid fa-eye fa-beat"></i> Ir a ver mis fichas
                             </button>
                             </form>
                         </div>
@@ -101,13 +101,14 @@ if((isset($_SESSION['user'])) and ($_SESSION['tipousuario'] == 'documentos') or 
                             <h5 class="card-title">Total de fichas <span style="color: black" class="badge badge-warning">{{$total['count']}}</span></h5>
                             <p class="card-text">Total de fichas generadas al dia <br><?php echo date('d/m/Y'); ?></p>
                             
-                            <a href="{{route('viewFichasall',['id_usuario'=>$id_usuario])}}" class="btn btn-primary btn-sm" style="margin-bottom: 3%">ir a ver mis fichas</a>
+                            <a href="{{route('viewFichasall',['id_usuario'=>$id_usuario])}}" class="btn btn-primary btn-sm" style="margin-bottom: 3%"><i class="fa-solid fa-eye fa-beat"></i> ir a ver mis fichas</a>
                             
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+       
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
