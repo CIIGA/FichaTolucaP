@@ -125,7 +125,7 @@
                         <td colspan="2"style="background-color: {{ $datos->color5 }}">
                             {{ number_format($tabla1->NFFONDO, 5) }}</td>
                         <td colspan="3"style="background-color: {{ $datos->color6 }}">
-                            {{ number_format($tabla1->UBICACION, 0) }}</td>
+                            {{ $ubicacion }}</td>
                         <td colspan="2"style="background-color: {{ $datos->color7 }}">
                             {{ number_format($tabla1->NFUBIC, 5) }}</td>
                         <td colspan="2"style="background-color: {{ $datos->color8 }}">

@@ -12,6 +12,7 @@ use App\Models\GC203T04;
 use App\Models\GC203T05;
 use App\Models\GC203T06;
 use App\Models\imgFicha;
+use App\Models\Ubicacion;
 use App\Models\ValCatastralesActualizados;
 use Exception;
 use Illuminate\Http\Request;
@@ -46,6 +47,8 @@ class FichaController extends Controller
             'NFUBIC', 'NFTOPOGR', 'NFIRREG', 'NFAREA', 'NFSUPAPR'
         ])
             ->where('GC203T04.CLAVE_CATA', $request->clave)->get();
+        $ubicacion=Ubicacion::select(['DESCRIPCION'])->where('UBICACION',floor($tabla[0]->UBICACION))->first();
+      
         //guardaremos 
         $valoresca = DB::select('select concat(GC203T06.USO,GC203T06.CLASECONST,GC203T06.CATEGCONST) AS TIPOLOGIA,
         GC203T06.SUPCONS,
@@ -87,6 +90,7 @@ class FichaController extends Controller
             'valoresca' => $valoresca, 'i' => $i, 'construccion_t' => $construccion_t, 'valor_ta' => $valor_ta, 'valor_ca' => $valor_ca,
             'id_documento' => $request->id_documento, 'id_usuario' => $request->id_usuario,
             'tipologias' => $tipologias, 'niveles' => $niveles, 'GC' => $GC,
+            'ubicacion' => $ubicacion->DESCRIPCION
         ]);
     }
     public function store(Request $request)
@@ -234,6 +238,7 @@ class FichaController extends Controller
             'NFUBIC', 'NFTOPOGR', 'NFIRREG', 'NFAREA', 'NFSUPAPR'
         ])
             ->where('GC203T04.CLAVE_CATA', $clavec)->first();
+            $ubicacion=Ubicacion::select(['DESCRIPCION'])->where('UBICACION',floor($tabla1->UBICACION))->first();
         //factor aplicable
         $FA = $tabla1->NFRENTE * $tabla1->NFFONDO * $tabla1->NFUBIC * $tabla1->NFTOPOGR * $tabla1->NFIRREG * $tabla1->NFAREA * $tabla1->NFSUPAPR;
         //CONSTRUCCION TOTAL
@@ -275,7 +280,8 @@ class FichaController extends Controller
         $pdf = PDF::loadView('pdf.fichaToluca', [
             'vcactuales' => $valoresca, 'vcactuales_color' => $vcactuales_color, 'i' => $i, 'datos' => $datos, 'tabla1' => $tabla1, 'FA' => $FA,
             'construccion_t' => $construccion_t, 'valor_ta' => $valor_ta, 'valor_ca' => $valor_ca, 'fotos' => $fotos, 'clavec' => $clavec, 'plantilla' => $plantilla,
-            'actualizados' => $actualizados,'actalizado_construccion_t' => $actalizado_construccion_t,'construccion_a' => $construccion_a
+            'actualizados' => $actualizados,'actalizado_construccion_t' => $actalizado_construccion_t,'construccion_a' => $construccion_a,
+            'ubicacion' => $ubicacion->DESCRIPCION
         ]);
 
         $sql_id_accessDoctos = "SELECT id_accessDoctos FROM accessDoctos     

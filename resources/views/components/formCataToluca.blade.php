@@ -504,7 +504,7 @@ session_start();
                             <td colspan="1" class="table-light border" style="text-align:center;" id="celda5">
                                 {{ number_format($tabla[0]->NFFONDO, 2) }}</td>
                             <td colspan="1" class="table-light border" style="text-align:center;" id="celda6">
-                                {{ number_format($tabla[0]->UBICACION, 2) }}</td>
+                                {{ $ubicacion }}</td>
                             <td colspan="1" class="table-light border" style="text-align:center;" id="celda7">
                                 {{ number_format($tabla[0]->NFUBIC, 2) }}</td>
                             <td colspan="2" class="table-light border" style="text-align:center;" id="celda8">
