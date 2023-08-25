@@ -37,3 +37,7 @@ Route::get('/ficha/{clavec}/{id_documento}/{id_usuario}', [FichaController::clas
 Route::post('/fichas-del-dia', [FichaController::class, 'viewFichasNow'])->name('viewFichas');
 //view Fichas all
 Route::get('/fichas-generadas/{id_usuario}', [FichaController::class, 'viewFichasall'])->name('viewFichasall');
+//modal edit vca
+Route::get('/modal_edit_vca/{id}', [FichaController::class, 'modal_edit_vca'])->name('modal_edit_vca');
+//editar vca
+Route::get('/edit_vca',  [FichaController::class, 'edit_vca'])->name('edit_vca');

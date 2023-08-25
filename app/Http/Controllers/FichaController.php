@@ -29,7 +29,8 @@ class FichaController extends Controller
             ->join('cat_regimen', 'GC203T04.REGPROP', '=', 'cat_regimen.regimen')
             ->join('cat_uso', 'GC203T05.DESTINO', '=', 'cat_uso.uso')
             ->select([
-                'GC203T05.CLAVE_CATA', 'GC203T04.DOMICILIO', 'GC203T04.NUMEXT', 'GC203T05.NUMINTP', 'GC203T04.CODPOST',
+                'GC203T05.CLAVE_CATA', 'GC203T04.DOMICILIO', 'GC203T04.NUMEXT', 'GC203T05.NUMINTP', 
+                DB::raw("convert(varchar,GC203T04.CODPOST) as CODPOST"),
                 'GC203T04.COLONIA', 'cat_regimen.descripcion as REGPROP', 'cat_uso.descripcion as USO',
                 'GC203T05.PMNPROP', 'GC203T05.RFC', 'GC203T05.CURP', 'GC203T05.CLAVE_CATA'
             ])
@@ -156,12 +157,12 @@ class FichaController extends Controller
             $registrar_vca->color = $request->$dato;
             $registrar_vca->save();
         }
-        if ($registrar_vca->save()) {
+        
 
 
             return '<script type="text/javascript">window.open("ficha/' . $request->clavec . '/' . $request->id_documento . '/' . $request->id_usuario . '")</script>' .
                 redirect()->route('index', ['id_documento' => $request->id_documento]);
-        }
+        
     }
     public function ficha($clavec, $id_documento, $id_usuario)
     {
@@ -412,7 +413,57 @@ class FichaController extends Controller
             return response()->json(['success' => false]);
         }
     }
+    public function edit_vca(Request $request)
+    {
+        $id = $request->get('id');
+        $clave = $request->get('clave');
+        $tipologia = $request->get('tipologia');
+        $superficie = $request->get('superficie');
+        $nivel = $request->get('nivel');
+        $edad = $request->get('edad');
+        $gc = $request->get('gc');
+        $color = $request->get('color');
+        //obtenemos el factor aplicable
+        // obtenemos el factor1
+        $factor1 = FichaFactores::select(['FACTOR1'])->where('NIVEL', $nivel)->first();
+        //obtener el factor 2
+        // año actual
+        $anioActual = now()->year;
+        $anio = $anioActual - $edad;
+        //buscamos el coeficiente dependiendo la tipologia
+        $coeficiente = FichaTipologias::select(['CoeficienteDemeritoAnual as coeficiente'])->where('TIPOL', $tipologia)->first();
+        $factor2 = 1 - ($anio * $coeficiente->coeficiente);
+        //factor 3 buscar factor dependiendo el gc
+        $factor3 = FichaFactores::select(['FACTOR2'])->where('GC', $gc)->first();
+        $factorA = $factor1->FACTOR1 * $factor2 * $factor3->FACTOR2;
+        //obtenemos ela ocupacion
 
+        //obtenemos el valor de construccion
+        $ocupacion = FichaTipologias::select(['DESCRCLCAT'])->where('TIPOL', $tipologia)->first();
+        //consultamos el unitarioValor
+        $UnitarioValor = FichaTipologias::select(['Valor2023'])->where('TIPOL', $tipologia)->first();
+        $valorC = $superficie * $factorA * $UnitarioValor->Valor2023;
+
+        $insert = ValCatastralesActualizados::findOrFail($id);
+      
+        $insert->tipologia = $tipologia;
+        $insert->superficie = $superficie;
+        $insert->niveles = $nivel;
+        $insert->edad = $edad;
+        $insert->gc = $gc;
+        $insert->factorA = $factorA;
+        $insert->Ocupacion = $ocupacion->DESCRCLCAT;
+        $insert->valorc = $valorC;
+        if($color !='0'){
+            $insert->color = $color;
+        }
+
+        if ($insert->save()) {
+            return $this->tabla_vca($clave);
+        } else {
+            return response()->json(['success' => false]);
+        }
+    }
 
     public function delete_id_vca(Request $request)
     {
@@ -440,5 +491,11 @@ class FichaController extends Controller
         ])->render();
         //retornamos la respuesta json
         return response()->json(['tabla' => $tablaHtml]);
+    }
+    public function modal_edit_vca($id){
+        $item = ValCatastralesActualizados::findOrFail($id);
+       
+        $modal= View::make('components.modal_edit_vca', ['datos' => $item])->render();
+        return response()->json(['modal' => $modal]);
     }
 }

@@ -89,7 +89,8 @@ session_start();
                             @error('clavec')
                             border border-danger rounded-2
                             @enderror"
-                                name="clavec" placeholder="Clave Catastral" value="{{ $item->CLAVE_CATA }}" id="clave" readonly>
+                                name="clavec" placeholder="Clave Catastral" value="{{ $item->CLAVE_CATA }}" id="clave"
+                                readonly>
                             @error('clavec')
                                 <div class="text-danger text-center text-footer">
                                     *Campo requerido
@@ -620,14 +621,14 @@ session_start();
                             </td>
                             <td colspan="1" class="table-light border" style="text-align:center;" id="celda13">
                                 <input type="text" style="width: 80px" class="form-control " name="bh"
-                                    placeholder="B.V." value="{{ old('bh') }}" >
+                                    placeholder="B.V." value="{{ old('bh') }}">
                             </td>
                             <td colspan="2" scope="col" class="table-light border" style="text-align:center;">
                                 A.H.
                             </td>
                             <td colspan="1" class="table-light border" style="text-align:center;" id="celda14">
                                 <input type="text" style="width: 80px" class="form-control" name="ah"
-                                    placeholder="A.H." value="{{ old('ah') }}" >
+                                    placeholder="A.H." value="{{ old('ah') }}">
                             </td>
                         </tr>
                         <tr>
@@ -779,7 +780,7 @@ session_start();
             <hr class="hrDer" />
             {{-- tabla para agregar vca --}}
             <div>
-               
+
                 <table class="table table-hover table-sm table-dark my-2">
                     <thead class="table-dark">
 
@@ -807,39 +808,39 @@ session_start();
                             <td colspan="1" class="table-light border" style="text-align:center;">
                                 <select class="form-select " id="tipologias">
                                     @foreach ($tipologias as $item)
-                                        <option value="{{$item->TIPOL}}">{{$item->TIPOL}}</option>
+                                        <option value="{{ $item->TIPOL }}">{{ $item->TIPOL }}</option>
                                     @endforeach
                                 </select>
                             </td>
 
                             <td colspan="1" class="table-light border" style="text-align:center;">
-                                <input type="text" class="form-control " id="superficie" >
+                                <input type="text" class="form-control " id="superficie">
                             </td>
 
 
                             <td colspan="1" class="table-light border" style="text-align:center;">
                                 <select class="form-select " id="niveles">
                                     @foreach ($niveles as $item)
-                                        <option value="{{$item->NIVEL}}">{{$item->NIVEL}}</option>
+                                        <option value="{{ $item->NIVEL }}">{{ $item->NIVEL }}</option>
                                     @endforeach
                                 </select>
                             </td>
 
                             <td colspan="1" class="table-light border" style="text-align:center;">
-                                <input type="text" class="form-control " id="edad"  >
+                                <input type="text" class="form-control " id="edad">
                             </td>
 
                             <td colspan="1" class="table-light border" style="text-align:center;">
                                 <select class="form-select " id="gc">
                                     @foreach ($GC as $item)
-                                        <option value="{{$item->gc}}">{{$item->gc}}</option>
+                                        <option value="{{ $item->gc }}">{{ $item->gc }}</option>
                                     @endforeach
                                 </select>
                             </td>
 
 
                             <td colspan="1" class="table-light border" style="text-align:center;">
-                                <select class="form-select text-footer" id="Acolores" >
+                                <select class="form-select text-footer" id="Acolores">
                                     <option value="#FFFFFF">Blanco</option>
                                     <option value="#FDEE00">Amarillo</option>
                                     <option value="#7FD43D">Verde</option>
@@ -848,7 +849,7 @@ session_start();
                             </td>
 
                             <td colspan="1" class="table-light border" style="text-align:center;">
-                               <button type="button" class="btn btn-info" id="insert_vca">Agregar</button>
+                                <button type="button" class="btn btn-info" id="insert_vca">Agregar</button>
                             </td>
 
                         </tr>
@@ -859,12 +860,12 @@ session_start();
             {{-- tabla vca --}}
             <hr class="hrIzq" />
             <div>
-               
-                <table class="table table-hover table-sm table-dark my-2" id="resultados_vca">
+
+                <table class="table table-hover table-sm  my-2" id="resultados_vca">
                     <thead class="table-dark">
 
                         <tr>
-                            <th colspan="10" style="text-align:center;">VALORES CATASTRALES ACTUALIZADOS</th>
+                            <th colspan="12" style="text-align:center;">VALORES CATASTRALES ACTUALIZADOS</th>
                         </tr>
                         <tr>
 
@@ -877,14 +878,16 @@ session_start();
                             <th style="text-align:center;">Factor Aplicable</th>
                             <th style="text-align:center;">Ocupación Actual</th>
                             <th style="text-align:center;">Valores de Construccion</th>
-                            <th style="text-align:center;">Acción</th>
+                            <th style="text-align:center;">Color</th>
+                            <th style="text-align:center;">Editar</th>
+                            <th style="text-align:center;">Eliminar</th>
 
 
                         </tr>
 
                     </thead>
                     <tbody>
-                        
+
                     </tbody>
                 </table>
 
@@ -901,10 +904,73 @@ session_start();
                 </button>
             </div>
         </form>
+
+
+
+
+    </div>
+    {{-- Modal de  Impuesto Predial --}}
+    <div class="modal fade" id="modal_edit_vca" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Valor Catastral Actualizado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="editForm_vca" >
+                   
+                    <div class="modal-body">
+                        <input type="hidden" id="idM">
+                        <input type="text" id="claveM">
+                        <div class="mb-3">
+                            <label for="tipologiaM" class="form-label">tipologia</label>
+                            <input type="text" class="form-control" id="tipologiaM" name="tipologiaM">
+                        </div>
+                        <div class="mb-3">
+                            <label for="superficieM" class="form-label">Superficie</label>
+                            <input type="text" class="form-control" id="superficieM" name="superficieM">
+                        </div>
+                        <div class="mb-3">
+                            <label for="nivelM" class="form-label">Nivel</label>
+                            <input type="number" class="form-control" id="nivelM" name="nivelM">
+                        </div>
+                        <div class="mb-3">
+                            <label for="edadM" class="form-label">Edad</label>
+                            <input type="number" class="form-control" id="edadM" name="edadM">
+                        </div>
+                        <div class="mb-3">
+                            <label for="gcM" class="form-label">G.C.</label>
+                            <input type="number" class="form-control" id="gcM" name="gcM">
+                        </div>
+                        <div class="mb-3">
+                            <label for="color" class="form-label">Selecciona un color si deseas cambiarlo</label>
+                            <select class="form-select" id="colorM">
+                                <option selected value='0'>Selecciona una opcion</option>
+                                <option value="#FFFFFF">Blanco</option>
+                                <option value="#FDEE00">Amarillo</option>
+                                <option value="#7FD43D">Verde</option>
+                                <option value="#F5564C">Rojo</option>
+                            </select>
+                        </div>
+                        
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><img
+                                src="https://img.icons8.com/fluency/30/null/cancel.png" />
+                            Cancelar</button>
+                        <button type="submit" class="btn btn-primary"><img
+                                src="https://img.icons8.com/fluency/30/save-as.png" alt=""> Guardar
+                            cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 @endsection
 @section('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -957,6 +1023,8 @@ session_start();
     <script src="{{ asset('js/vca/insert_vca.js') }}"></script>
     <script src="{{ asset('js/vca/tabla_vca.js') }}"></script>
     <script src="{{ asset('js/vca/delete_id_vca.js') }}"></script>
+    <script src="{{ asset('js/vca/modal_vca.js') }}"></script>
+    <script src="{{ asset('js/vca/edit_vca.js') }}"></script>
     <script src="{{ asset('js/cambiar_color.js') }}"></script>
     <script src="{{ asset('js/mcambiar_color.js') }}"></script>
 @endsection
