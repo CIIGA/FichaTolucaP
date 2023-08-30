@@ -59,7 +59,7 @@ class FichaController extends Controller
         GC203T06.VALORCONS,
         cat_ocupaciones.DESCRCLCAT
         from cat_ocupaciones,GC203T06 where cat_ocupaciones.USO = GC203T06.USO and cat_ocupaciones.CLASECONST = GC203T06.CLASECONST and 
-        cat_ocupaciones.CATEGCONST = GC203T06.CATEGCONST and GC203T06.CLAVE_CATA=?', [$request->clave]);
+        cat_ocupaciones.CATEGCONST = GC203T06.CATEGCONST and GC203T06.CLAVE_CATA=? order by ANIODECONS desc', [$request->clave]);
 
        
 
@@ -226,7 +226,7 @@ class FichaController extends Controller
             GC203T06.VALORCONS,
             cat_ocupaciones.DESCRCLCAT
             from cat_ocupaciones,GC203T06 where cat_ocupaciones.USO = GC203T06.USO and cat_ocupaciones.CLASECONST = GC203T06.CLASECONST and 
-            cat_ocupaciones.CATEGCONST = GC203T06.CATEGCONST and GC203T06.CLAVE_CATA=?', [$clavec]);
+            cat_ocupaciones.CATEGCONST = GC203T06.CATEGCONST and GC203T06.CLAVE_CATA=? order by ANIODECONS desc', [$clavec]);
         $vcactuales_color = colorVCActuales::select([
             'numero',
             'color'
