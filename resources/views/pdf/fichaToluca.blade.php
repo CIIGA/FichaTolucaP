@@ -174,7 +174,7 @@
                         <tr style="background-color: {{ $color }}">
                             <td colspan="1">{{ $vcactuales_color[$i - 1]->numero }}<br></td>
                             <td colspan="1">{{ $item->TIPOLOGIA }}</td>
-                            <td colspan="2">{{ $item->SUPCONS }}</td>
+                            <td colspan="2">{{ number_format($item->SUPCONS,2) }}</td>
                             <td colspan="1">{{ number_format($item->NIVCONS, 0) }}</td>
                             <td colspan="1">{{ round($item->ANIODECONS) }}</td>
                             <td colspan="1"> {{ number_format($item->ESTADOCONS, 0) }}</td>
