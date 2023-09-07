@@ -175,7 +175,7 @@ class FichaController extends Controller
         //gatos nenerales
         $datos = fichaToluca::select([
             'folio',
-            'fecha',
+            DB::raw("CONVERT(NVARCHAR(10), fecha, 103) as fecha"),
             'motivo',
             'clavec',
             'calle1',

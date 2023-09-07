@@ -24,78 +24,78 @@
                 <tbody>
                     <tr class="">
                         <td colspan="3" class="bold td_color">FOLIO</td>
-                        <td colspan="3">{{ isset($datos->folio) ? $datos->folio : '' }}</td>
+                        <td colspan="3">{{ isset($datos->folio) ? $datos->folio : '-' }}</td>
 
                         <td colspan="3" class="bold td_color">FECHA</td>
-                        <td colspan="3">{{ $datos->fecha }}</td>
+                        <td colspan="3">{{ isset($datos->fecha) ? $datos->fecha : '-' }}</td>
                         <td colspan="3" class="bold td_color">MOTIVO</td>
-                        <td colspan="4">{{ $datos->motivo }}</td>
+                        <td colspan="4">{{ isset($datos->motivo) ? $datos->motivo : '-' }}</td>
                     </tr>
                     <tr class="">
                         <td colspan="19" class=" td_title_color"></td>
                     </tr>
                     <tr>
                         <td colspan="3" class="bold td_color">Clave Catastral</td>
-                        <td colspan="16" class="text_red underline">{{ $datos->clavec }}</td>
+                        <td colspan="16" class="text_red underline">{{ isset($datos->clavec) ? $datos->clavec : '-' }}</td>
                     </tr>
                     <tr>
                         <td colspan="2" class="bold td_color">Calle</td>
-                        <td colspan="5">{{ $datos->calle1 }}</td>
+                        <td colspan="5">{{ isset($datos->calle1) ? $datos->calle1 : '-' }}</td>
                         <td colspan="2" class="bold td_color">N. Ext</td>
-                        <td colspan="2">{{ $datos->numext1 }}</td>
+                        <td colspan="2">{{ isset($datos->numext1) ? $datos->numext1 : '-' }}</td>
                         <td colspan="2" class="bold td_color">Núm. Int</td>
-                        <td colspan="2">{{ $datos->numint1 }}</td>
+                        <td colspan="2">{{ isset($datos->numint1) ? $datos->numint1 : '-' }}</td>
                         <td colspan="2" class="bold td_color">C.P.</td>
-                        <td colspan="2">{{ $datos->cp1 }}</td>
+                        <td colspan="2">{{ isset($datos->cp1) ? $datos->cp1 : '-' }}</td>
                     </tr>
                     <tr>
                         <td colspan="4" class="bold td_color">Col. Fracc. Barrio</td>
-                        <td colspan="5">{{ $datos->colonia1 }}</td>
+                        <td colspan="5">{{ isset($datos->colonia1) ? $datos->colonia1 : '-' }}</td>
                         <td colspan="4" class="bold td_color">Localidad</td>
-                        <td colspan="6">{{ $datos->localidad }}</td>
+                        <td colspan="6">{{ isset($datos->localidad) ? $datos->localidad : '-' }}</td>
 
                     </tr>
                     <tr>
                         <td colspan="3" class="bold td_color">Régimen de Propiedad </td>
-                        <td colspan="6">{{ $datos->regimen }}</td>
+                        <td colspan="6">{{ isset($datos->regimen) ? $datos->regimen : '-' }}</td>
                         <td colspan="3" class="bold td_color">Uso de Suelo</td>
-                        <td colspan="7">{{ $datos->uso }}</td>
+                        <td colspan="7">{{ isset($datos->uso) ? $datos->uso : '-' }}</td>
                     </tr>
                     <tr>
                         <th colspan="19" class="bold td_title_color">DATOS DEL POSEEDOR</th>
                     </tr>
                     <tr>
                         <td colspan="6" class="bold td_color">Nombre del propietario o poseedor</td>
-                        <td colspan="13">{{ $datos->propietario }}</td>
+                        <td colspan="13">{{ isset($datos->propietario) ? $datos->propietario : '-' }}</td>
                     </tr>
                     <tr>
                         <td colspan="2" class="bold td_color">R.F.C.</td>
-                        <td colspan="5">{{ $datos->rfc }}</td>
+                        <td colspan="5">{{ isset($datos->rfc) ? $datos->rfc : '-' }}</td>
                         <td colspan="4" class="bold td_color">CURP</td>
-                        <td colspan="8">{{ $datos->curp }}</td>
+                        <td colspan="8">{{ isset($datos->curp) ? $datos->curp : '-' }}</td>
                     </tr>
                     <tr>
                         <td colspan="2" class="bold td_color">Calle</td>
-                        <td colspan="5">{{ $datos->calle2 }}</td>
+                        <td colspan="5">{{ isset($datos->calle2) ? $datos->calle2 : '-' }}</td>
                         <td colspan="2" class="bold td_color">N. Ext</td>
-                        <td colspan="2">{{ $datos->numext2 }}</td>
+                        <td colspan="2">{{ isset($datos->numext2) ? $datos->numext2 : '-' }}</td>
                         <td colspan="2" class="bold td_color">Núm. Int</td>
-                        <td colspan="2">{{ $datos->numint2 }}</td>
+                        <td colspan="2">{{ isset($datos->numint2) ? $datos->numint2 : '-' }}</td>
                         <td colspan="2" class="bold td_color">C.P</td>
-                        <td colspan="2">{{ $datos->cp2 }}</td>
+                        <td colspan="2">{{ isset($datos->cp2) ? $datos->cp2 : '-' }}</td>
                     </tr>
                     <tr>
                         <td colspan="4" class="bold td_color">Col, Fracc, Barrio</td>
-                        <td colspan="5">{{ $datos->colonia2 }}</td>
+                        <td colspan="5">{{ isset($datos->colonia2) ? $datos->colonia2 : '-' }}</td>
                         <td colspan="3" class="bold td_color">Localidad</td>
-                        <td colspan="7">{{ $datos->localidad2 }}</td>
+                        <td colspan="7">{{ isset($datos->localidad2) ? $datos->localidad2 : '-' }}</td>
                     </tr>
 
                     <tr>
                         <td colspan="3" class="bold td_color">Municipio</td>
-                        <td colspan="6">{{ $datos->municipio2 }}</td>
+                        <td colspan="6">{{ isset($datos->municipio2) ? $datos->municipio2 : '-' }}</td>
                         <td colspan="3" class="bold td_color">Telefono</td>
-                        <td colspan="7">{{ $datos->telefono }}</td>
+                        <td colspan="7">{{ isset($datos->telefono) ? $datos->telefono : '-' }}</td>
                     </tr>
 
                     <tr>
@@ -145,9 +145,9 @@
                         <td colspan="2"style="background-color: {{ $datos->color12 }}">
                             {{ number_format($FA, 5) }}</td>
                         <td colspan="1" class="bold td_color">B.V.</td>
-                        <td colspan="2"style="background-color: {{ $datos->color13 }}">{{ $datos->bh }}</td>
+                        <td colspan="2"style="background-color: {{ $datos->color13 }}">{{ isset($datos->bh) ? $datos->bh : '-' }}</td>
                         <td colspan="1" class="bold td_color">A.H.</td>
-                        <td colspan="2"style="background-color: {{ $datos->color14 }}">{{ $datos->ah }}</td>
+                        <td colspan="2"style="background-color: {{ $datos->color14 }}">{{ isset($datos->ah) ? $datos->ah : '-' }}</td>
                     </tr>
                     <tr>
                         <th colspan="19" class="bold td_title_color">VALORES CATASTRALES ACTUALES</th>
@@ -237,7 +237,7 @@
                         <tr style="background-color: {{ $dato->color }}">
                             <td colspan="1">{{ $loop->iteration }}</td>
                             <td colspan="1">{{ $dato->tipologia }}</td>
-                            <td colspan="2">{{ $dato->superficie }}</td>
+                            <td colspan="2">{{ number_format($dato->superficie,2) }}</td>
                             <td colspan="1">{{ $dato->niveles }}</td>
                             <td colspan="1">{{ $dato->edad }}</td>
                             <td colspan="1">{{ $dato->gc }}</td>
