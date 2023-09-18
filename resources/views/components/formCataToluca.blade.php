@@ -921,7 +921,7 @@ session_start();
                    
                     <div class="modal-body">
                         <input type="hidden" id="idM">
-                        <input type="text" id="claveM">
+                        <input type="hidden" id="claveM">
                         <div class="mb-3">
                             <label for="tipologiaM" class="form-label">tipologia</label>
                             <input type="text" class="form-control" id="tipologiaM" name="tipologiaM">
