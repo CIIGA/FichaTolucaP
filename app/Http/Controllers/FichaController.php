@@ -390,9 +390,15 @@ class FichaController extends Controller
         //buscamos el coeficiente dependiendo la tipologia
         $coeficiente = FichaTipologias::select(['CoeficienteDemeritoAnual as coeficiente'])->where('TIPOL', $tipologia)->first();
         $factor2 = 1 - ($anio * $coeficiente->coeficiente);
+        if($factor2 < 0.6){
+            $factor2=0.6;
+        }
         //factor 3 buscar factor dependiendo el gc
         $factor3 = FichaFactores::select(['FACTOR2'])->where('GC', $gc)->first();
         $factorA = $factor1->FACTOR1 * $factor2 * $factor3->FACTOR2;
+        if($factorA < 0.4){
+            $factorA=0.4;
+        }
         //obtenemos ela ocupacion
 
         //obtenemos el valor de construccion
@@ -439,9 +445,15 @@ class FichaController extends Controller
         //buscamos el coeficiente dependiendo la tipologia
         $coeficiente = FichaTipologias::select(['CoeficienteDemeritoAnual as coeficiente'])->where('TIPOL', $tipologia)->first();
         $factor2 = 1 - ($anio * $coeficiente->coeficiente);
+        if($factor2 < 0.6){
+            $factor2=0.6;
+        }
         //factor 3 buscar factor dependiendo el gc
         $factor3 = FichaFactores::select(['FACTOR2'])->where('GC', $gc)->first();
         $factorA = $factor1->FACTOR1 * $factor2 * $factor3->FACTOR2;
+        if($factorA < 0.4){
+            $factorA=0.4;
+        }
         //obtenemos ela ocupacion
 
         //obtenemos el valor de construccion
